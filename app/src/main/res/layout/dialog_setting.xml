@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/othello_stone_label_1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center|center_vertical"
+            android:textAlignment="center"/>
+
+        <RadioGroup
+            android:id="@+id/radiogroup_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radio_black_0"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+            <RadioButton
+                android:id="@+id/radio_black_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_user_type_0"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:id="@+id/radio_black_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_user_type_1"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/othello_stone_label_2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center|center_vertical"
+            android:textAlignment="center"/>
+
+        <RadioGroup
+            android:id="@+id/radiogroup_white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radio_white_1"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+            <RadioButton
+                android:id="@+id/radio_white_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_user_type_0"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:id="@+id/radio_white_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_user_type_1"
+                android:layout_weight="1"
+                />
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</LinearLayout>

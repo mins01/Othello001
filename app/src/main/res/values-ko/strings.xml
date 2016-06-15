@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">오델로</string>
+
+    <string name="othello_stone_label_0">빈</string>
+    <string name="othello_stone_label_1">흑</string>
+    <string name="othello_stone_label_2">백</string>
+    <string name="othello_putstone_true">%1$d , %2$d 에 %3$s돌을 놓았습니다.</string>
+    <string name="othello_putstone_false">%1$d , %2$d 에 %3$s돌을 놓을 수 없습니다.</string>
+    <string name="othello_start_game">게임시작</string>
+    <string name="othello_gameover">게임오버</string>
+    <string name="othello_actionAI">A.I. 생각중</string>
+    <string name="othello_result_0">무승부!</string>
+    <string name="othello_result_1">흑돌 승리!</string>
+    <string name="othello_result_2">백돌 승리!</string>
+    <string name="othello_turnend_0">%1$s돌을 놓을 위치가 없습니다.</string>
+    <string name="othello_turnend_1">%1$s돌의 차례입니다.</string>
+
+    <string name="othello_user_type_0">사람</string>
+    <string name="othello_user_type_1">A.I.</string>
+
+    <string name="othello_result">결과</string>
+    <string name="othello_setting">설정</string>
+
+    <string name="othello_btn_setting">설정</string>
+    <string name="othello_btn_restart">재시작</string>
+    <string name="othello_btn_hint">힌트</string>
+
+
+
+    <string name="menu_developer_msg">앱개발자 홈페이지로 이동합니다.</string>
+    <string name="menu_developer">개발자:공대여자</string>
+    <string name="exit_press_once_more">한번 더 누르시면 종료됩니다.</string>
+
+
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|center_vertical"
+    android:layout_margin="5dp"
+    >
+
+
+    <include
+        android:id="@+id/main_othello_info"
+        android:layout_width="match_parent"
+        layout="@layout/othello_info"
+        android:layout_height="wrap_content"
+       />
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/othello_stone_black"
+        android:layout_margin="@dimen/half_margin"
+        android:id="@+id/dialog_gameover_stone_1"
+        android:visibility="gone"
+        >
+
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/othello_stone_white"
+        android:layout_margin="@dimen/half_margin"
+        android:id="@+id/dialog_gameover_stone_2"
+        android:visibility="gone"
+        >
+
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/dialog_gameover_stone_0"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/othello_stone_black"
+            android:layout_margin="@dimen/half_margin"
+
+            android:layout_gravity="left|center_vertical"
+            android:alpha="0.5"
+            >
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/othello_stone_white"
+            android:layout_margin="@dimen/half_margin"
+            android:layout_gravity="right|center_vertical"
+            android:alpha="0.5">
+
+        </FrameLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50sp"
+        android:text="WIN : Black"
+        android:id="@+id/dialog_gameover_text01"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>

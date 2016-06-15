@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Othello</string>
+
+    <string name="othello_stone_label_0">Empty</string>
+    <string name="othello_stone_label_1">Black</string>
+    <string name="othello_stone_label_2">White</string>
+    <string name="othello_putstone_true">The %3$s stone was placed on the %1$d , %2$d</string>
+    <string name="othello_putstone_false">The %3$s stone can not be placed on the %1$d , %2$d</string>
+    <string name="othello_start_game">Game Start</string>
+    <string name="othello_gameover">Game Over</string>
+    <string name="othello_actionAI">A.I. Thinking...</string>
+    <string name="othello_result_0">Draw!</string>
+    <string name="othello_result_1">Black Win!</string>
+    <string name="othello_result_2">White WIN!</string>
+    <string name="othello_turnend_0">There is no place to put the %1$s stone.</string>
+    <string name="othello_turnend_1">%1$s stone turn.</string>
+
+    <string name="othello_user_type_0">Human</string>
+    <string name="othello_user_type_1">A.I.</string>
+
+    <string name="othello_result">Result</string>
+    <string name="othello_setting">Setting</string>
+
+    <string name="othello_btn_setting">Setting</string>
+    <string name="othello_btn_restart">Restart</string>
+    <string name="othello_btn_hint">hint</string>
+
+
+
+    <string name="menu_developer_msg">Go to the app developer\'s homepage.</string>
+    <string name="menu_developer">developer:공대여자</string>
+    <string name="exit_press_once_more">Exit Press once more.</string>
+
+
+</resources>

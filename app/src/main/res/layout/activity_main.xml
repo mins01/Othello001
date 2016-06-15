@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="@dimen/half_margin"
+    android:paddingRight="@dimen/half_margin"
+    android:paddingTop="@dimen/half_margin"
+    tools:context="com.mins01.othello001.MainActivity">
+
+    <TextView
+        android:id="@+id/testText"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:singleLine="false"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/main_othello_info"
+        android:layout_width="match_parent"
+        layout="@layout/othello_info"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"/>
+    <include
+        android:id="@+id/main_othello_board"
+
+        layout="@layout/ohtello_board"
+        android:layout_width="304dp"
+        android:layout_height="304dp"
+        android:layout_below="@+id/main_othello_info"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="clear"
+        android:id="@+id/buttonClear"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="놓을 수 있는 위치"
+        android:id="@+id/buttonAblePos"
+        android:onClick="onClick"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/buttonClear"
+        android:layout_toEndOf="@+id/buttonClear"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="흑으로설정"
+        android:id="@+id/button_change_color_black"
+        android:onClick="onClick"
+        android:layout_above="@+id/buttonClear"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="백으로설정"
+        android:id="@+id/button_change_color_white"
+        android:onClick="onClick"
+        android:layout_alignTop="@+id/button_change_color_black"
+        android:layout_toRightOf="@+id/buttonClear"
+        android:layout_toEndOf="@+id/buttonClear"
+        android:visibility="gone"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="자동-다음"
+        android:id="@+id/button_auto_next"
+        android:onClick="onClick"
+        android:layout_above="@+id/buttonAblePos"
+        android:layout_toRightOf="@+id/button_change_color_white"
+        android:layout_toEndOf="@+id/button_change_color_white"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/othello_btn_setting"
+        android:id="@+id/button_show_setting_dialog"
+        android:onClick="onClick"
+        android:layout_alignTop="@+id/button_restart"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/othello_btn_restart"
+        android:id="@+id/button_restart"
+        android:onClick="onClick"
+        android:layout_above="@+id/frameLayout_adView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frameLayout_adView"
+
+        android:layout_alignParentBottom="true"
+
+        android:paddingTop="2dp">
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adUnitId="@string/admob_under_banner"
+            ads:adSize="BANNER"
+            android:layout_gravity="center_horizontal|bottom"
+
+            android:background="#1baabbcc"
+            />
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gameover"
+        android:id="@+id/button_gameover"
+        android:onClick="onClick"
+        android:layout_alignTop="@+id/button_restart"
+        android:layout_toRightOf="@+id/button_restart"
+        android:layout_toEndOf="@+id/button_restart"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Loading..."
+        android:id="@+id/game_msg_0"
+        android:layout_below="@+id/main_othello_board"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal|center_vertical"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Loading..."
+        android:id="@+id/game_msg_1"
+        android:gravity="center_horizontal|center_vertical"
+        android:alpha="0.5"
+        android:layout_below="@+id/game_msg_0"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Loading..."
+        android:id="@+id/game_msg_2"
+        android:gravity="center_horizontal|center_vertical"
+        android:alpha="0.2"
+        android:layout_below="@+id/game_msg_1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="테스트판"
+        android:id="@+id/btn_test_set_board"
+        android:onClick="onClick"
+        android:visibility="gone"
+        android:layout_below="@+id/game_msg_1"
+        android:layout_toLeftOf="@+id/button_show_setting_dialog"
+        android:layout_toStartOf="@+id/button_show_setting_dialog" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/othello_btn_hint"
+        android:id="@+id/btn_hint"
+        android:onClick="onClick"
+        android:visibility="visible"
+        android:layout_above="@+id/frameLayout_adView"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

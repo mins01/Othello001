@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="304dp"
+    android:layout_height="304dp"
+    android:stretchColumns="*"
+    android:id="@+id/othello_board_table"
+    >
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+    <TableRow >
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box" />
+        <include layout="@layout/othello_board_box" style="@style/othello_board_box"  />
+    </TableRow>
+</TableLayout>
