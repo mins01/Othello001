@@ -107,7 +107,25 @@ public class Othello {
         }
 
         public void setBoard(int[][] board){
-            this.board = board;
+            for(int y = 0,m=this.board.length;y<m;y++){
+                System.arraycopy(board[y],0,this.board[y],0,board[y].length);
+            }
+        }
+        public int[][] getBoard(){
+            int[][] board = {
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+                    {0,0,0,0,0,0,0,0},
+            };
+            for(int y = 0,m=this.board.length;y<m;y++){
+                System.arraycopy(this.board[y],0,board[y],0,this.board[y].length);
+            }
+            return board;
         }
 
         /**
@@ -119,8 +137,10 @@ public class Othello {
             //board[stone.y][stone.x] = stone.color;
             ArrayList<int[]> preTurnPos = getPreTurnPos(stone);
             if(preTurnPos.size()>0){
-                Log.d("뒤집기-"+stone.color, preTurnPos.size()+":");
+
+                Log.d("돌 놓기",stone.toString());
                 board[stone.y][stone.x] = stone.color;
+                Log.d("뒤집기-"+stone.color, preTurnPos.size()+":");
                 lastStone.setStone(stone.x,stone.y,stone.color);
                 for (int[] pos:preTurnPos
                      ) {

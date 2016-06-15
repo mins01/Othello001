@@ -15,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int color = 1; //0:없음,1:흑,2:
     //-- 세팅값
     private int blackUser = 0; //0:user 1:AI
-    private int whiteUser = 1; //0:user 1:AI
+    private int whiteUser = 2; //0:user 1:AI LV1 , 2:LV2
     private int autoHint = 0;
     private int gameing = 0; //게임 진핸중인가?
     Handler handlerAI = null;
@@ -167,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
                 };
                 othGame.board.setBoard(board);
                 drawBoard();
+                break;
+            case R.id.btn_test_ai:
+                Log.d("onClick", "btn_test_ai");
+                OthelloAiLv02 ai = new OthelloAiLv02();
+                Stone stone = ai.getNextStone(this.othGame,color);
+                //putStone(stone.x, stone.y, stone.color);
                 break;
             case R.id.btn_hint:
                 showHint();
@@ -306,6 +314,12 @@ public class MainActivity extends AppCompatActivity {
      * @param
      */
     public void onclickBox(View box) {
+        if(color ==1 && blackUser>0){
+            return;
+        }else if(color ==2 && whiteUser>0){
+            return;
+        }
+
         HolderForBox hfb = (HolderForBox) box.getTag();
         Log.d("onclickBox", hfb.x + ":" + hfb.y);
         putStone(hfb.x, hfb.y, color);
@@ -368,6 +382,7 @@ public class MainActivity extends AppCompatActivity {
 //            }else{
 //                tv.setText("["+board[hfb.y][hfb.x]+"]");
 //            }
+//            tv.setText("["+hfb.x+","+hfb.y+"]");
             if (lastStone.x == hfb.x && lastStone.y == hfb.y) {
                 box.setBackgroundResource(R.drawable.othello_board_box_last);
             } else {
@@ -383,7 +398,21 @@ public class MainActivity extends AppCompatActivity {
         syncInfo();
     }
     public void callAI(){
-        autoNext();
+        int lv = color == 1?blackUser:whiteUser; //0이면 사람, 그이상이면 AI;
+        Stone stone = null;
+        switch (lv){
+            case 1:
+                OthelloAiLv01 ai = new OthelloAiLv01();
+                stone = ai.getNextStone(this.othGame,color);
+                putStone(stone.x, stone.y, stone.color);
+                break;
+            case 2:
+                OthelloAiLv02 ai02 = new OthelloAiLv02();
+                stone = ai02.getNextStone(this.othGame,color);
+                putStone(stone.x, stone.y, stone.color);
+                break;
+        }
+        drawBoard();
     }
     /**
      * 놓을 수 있는 랜덤 위치로.
@@ -423,30 +452,36 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
         final View innerView = getLayoutInflater().inflate(R.layout.dialog_setting, null);
 
-        ((RadioGroup) innerView.findViewById(R.id.radiogroup_black)).setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
+        ((Switch) innerView.findViewById(R.id.switch_hint)).setOnCheckedChangeListener(
+                new Switch.OnCheckedChangeListener(){
+
                     @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        MainActivity.this.onCheckedChanged(group, checkedId);
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        MainActivity.this.onCheckedChanged(buttonView, isChecked);
                     }
                 }
         );
-        ((RadioGroup) innerView.findViewById(R.id.radiogroup_white)).setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        MainActivity.this.onCheckedChanged(group, checkedId);
-                    }
-                }
-        );
-        ((RadioGroup) innerView.findViewById(R.id.radiogroup_hint)).setOnCheckedChangeListener(
-                new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        MainActivity.this.onCheckedChanged(group, checkedId);
-                    }
-                }
-        );
+
+        ((Spinner)innerView.findViewById(R.id.spinner_user_1)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                MainActivity.this.onCheckedChanged(parent, view, position,id);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        ((Spinner)innerView.findViewById(R.id.spinner_user_2)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                MainActivity.this.onCheckedChanged(parent,view,  position,id);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         ab.setTitle(getString(R.string.othello_setting));
         ab.setView(innerView);
@@ -471,21 +506,9 @@ public class MainActivity extends AppCompatActivity {
     public void showDialogForSetting() {
         Log.d("showDialogForSetting", blackUser + ":" + whiteUser);
         settingDialog.show();
-        if (this.blackUser == 0) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_black_0)).setChecked(true);
-        } else if (this.blackUser == 1) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_black_1)).setChecked(true);
-        }
-        if (this.whiteUser == 0) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_white_0)).setChecked(true);
-        } else if (this.whiteUser == 1) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_white_1)).setChecked(true);
-        }
-        if (this.autoHint == 0) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_autohint_0)).setChecked(true);
-        } else if (this.autoHint == 1) {
-            ((RadioButton) settingDialog.findViewById(R.id.radio_autohint_1)).setChecked(true);
-        }
+
+        ((Switch) settingDialog.findViewById(R.id.switch_hint)).setChecked(this.autoHint==1);
+        ((Spinner) settingDialog.findViewById(R.id.spinner_user_2)).setSelection(this.whiteUser);
     }
 
     //-- 게임오버용
@@ -553,27 +576,30 @@ public class MainActivity extends AppCompatActivity {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
     }
+    public void onCheckedChanged(View parent, View view, int position, long id) { // 스피너
+        Log.e("onCheckedChanged",parent.getId()+","+position+","+id+","+R.id.spinner_user_2);
+        switch (parent.getId()) {
+            case R.id.spinner_user_1:
+                this.blackUser = position;
+                break;
+            case R.id.spinner_user_2:
+                this.whiteUser = position;
+                break;
+        }
+        drawBoard();
+    }
+    public void onCheckedChanged(CompoundButton arg0, boolean arg1) { // 라디오버튼
+        switch (arg0.getId()) {
+//            case R.id.radio_white_0:
+//                this.whiteUser = 0;
+//                break;
+//            case R.id.radio_white_1:
+//                this.whiteUser = 1;
+//                break;
+            case R.id.switch_hint:
+                this.autoHint = arg1?1:0;
+                break;
 
-    public void onCheckedChanged(RadioGroup arg0, int arg1) { // 라디오버튼
-        switch (arg1) {
-            case R.id.radio_black_0:
-                this.blackUser = 0;
-                break;
-            case R.id.radio_black_1:
-                this.blackUser = 1;
-                break;
-            case R.id.radio_white_0:
-                this.whiteUser = 0;
-                break;
-            case R.id.radio_white_1:
-                this.whiteUser = 1;
-                break;
-            case R.id.radio_autohint_0:
-                this.autoHint = 0;
-                break;
-            case R.id.radio_autohint_1:
-                this.autoHint = 1;
-                break;
         }
         drawBoard();
     }

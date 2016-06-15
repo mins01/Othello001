@@ -191,6 +191,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="테스트AI"
+        android:id="@+id/btn_test_ai"
+        android:onClick="onClick"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/othello_btn_hint"
         android:id="@+id/btn_hint"
         android:onClick="onClick"
