@@ -30,6 +30,9 @@
     <string name="menu_developer_msg">Go to the app developer\'s homepage.</string>
     <string name="menu_developer">developer:공대여자</string>
     <string name="exit_press_once_more">Exit Press once more.</string>
+    <string name="othello_autohint">Autohint</string>
+    <string name="othello_use">use</string>
+    <string name="othello_not_use">not use</string>
 
 
 </resources>

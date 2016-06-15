@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     //-- 세팅값
     private int blackUser = 0; //0:user 1:AI
     private int whiteUser = 1; //0:user 1:AI
+    private int autoHint = 0;
     private int gameing = 0; //게임 진핸중인가?
     Handler handlerAI = null;
     AdView mAdView = null;
@@ -166,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
                 };
                 othGame.board.setBoard(board);
                 drawBoard();
-                syncInfo();
                 break;
             case R.id.btn_hint:
                 showHint();
@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
 
         color = 1;
         drawBoard();
-        syncInfo();
 //        turnEnd();
         //printTest();
         actionAI();
@@ -266,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
                     new Runnable() {
                         @Override
                         public void run() {
-                            autoNext();
+                            callAI();
                         }
                     }
                     , 1000);
@@ -312,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
         putStone(hfb.x, hfb.y, color);
 
         drawBoard();
-        syncInfo();
     }
 
     public void putStone(int x, int y, int color) {
@@ -335,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Stone> ablePos = othGame.board.getAblePos(color);
         View box = null;
         for(Stone stone:ablePos){
-            Log.d("xxxxxx",stone.x+stone.y*8+" ");
+//            Log.d("xxxxxx",stone.x+stone.y*8+" ");
             box = boxes.get(stone.x+stone.y*8);
             box.setBackgroundResource(R.drawable.othello_board_box_hint);
         }
@@ -376,10 +374,17 @@ public class MainActivity extends AppCompatActivity {
                 box.setBackgroundResource(R.drawable.othello_board_box);
             }
         }
+        Log.e("autoHint",autoHint+":");
+        if(autoHint==1){
+            showHint();
+        }
+
 
         syncInfo();
     }
-
+    public void callAI(){
+        autoNext();
+    }
     /**
      * 놓을 수 있는 랜덤 위치로.
      */
@@ -390,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
             int idx = (int) Math.floor(Math.random() * (ablePos.size()));
             putStone(ablePos.get(idx).x, ablePos.get(idx).y, color);
             drawBoard();
-            syncInfo();
         } else {
             Log.d("autoNext", "END");
         }
@@ -435,6 +439,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        ((RadioGroup) innerView.findViewById(R.id.radiogroup_hint)).setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        MainActivity.this.onCheckedChanged(group, checkedId);
+                    }
+                }
+        );
 
         ab.setTitle(getString(R.string.othello_setting));
         ab.setView(innerView);
@@ -468,6 +480,11 @@ public class MainActivity extends AppCompatActivity {
             ((RadioButton) settingDialog.findViewById(R.id.radio_white_0)).setChecked(true);
         } else if (this.whiteUser == 1) {
             ((RadioButton) settingDialog.findViewById(R.id.radio_white_1)).setChecked(true);
+        }
+        if (this.autoHint == 0) {
+            ((RadioButton) settingDialog.findViewById(R.id.radio_autohint_0)).setChecked(true);
+        } else if (this.autoHint == 1) {
+            ((RadioButton) settingDialog.findViewById(R.id.radio_autohint_1)).setChecked(true);
         }
     }
 
@@ -551,8 +568,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.radio_white_1:
                 this.whiteUser = 1;
                 break;
-
+            case R.id.radio_autohint_0:
+                this.autoHint = 0;
+                break;
+            case R.id.radio_autohint_1:
+                this.autoHint = 1;
+                break;
         }
+        drawBoard();
     }
     private String lastGameMsg = "";
     public void setGameMsg(String msg) {

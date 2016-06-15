@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="bg_othello_baord_box">#00CC66</color>
-    <color name="bg_othello_baord_box_last">#92ffc9</color>
-    <color name="bg_othello_baord_box_hint">#FAFF92</color>
+    <color name="bg_othello_baord_box_hint">#30ff37</color>
+    <color name="bg_othello_baord_box_last">#FAFF92</color>
 </resources>

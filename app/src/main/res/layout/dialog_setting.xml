@@ -83,5 +83,43 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/othello_autohint"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_weight="1"
+            android:layout_gravity="center|center_vertical"
+            android:textAlignment="center" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_hint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/radioButton2"
+            android:orientation="horizontal"
+            android:layout_weight="2" >
+
+            <RadioButton
+                android:id="@+id/radio_autohint_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_not_use"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:id="@+id/radio_autohint_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/othello_use"
+                android:layout_weight="1" />
+        </RadioGroup>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -30,6 +30,9 @@
     <string name="menu_developer_msg">앱개발자 홈페이지로 이동합니다.</string>
     <string name="menu_developer">개발자:공대여자</string>
     <string name="exit_press_once_more">한번 더 누르시면 종료됩니다.</string>
+    <string name="othello_autohint">자동힌트</string>
+    <string name="othello_use">사용</string>
+    <string name="othello_not_use">미사용</string>
 
 
 </resources>
