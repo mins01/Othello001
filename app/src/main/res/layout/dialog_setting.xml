@@ -58,17 +58,42 @@
             />
 
     </LinearLayout>
-
-    <Switch
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/othello_autohint"
-        android:textOn="ON"
-        android:textOff="OFF"
-        android:id="@+id/switch_hint"
-        android:layout_gravity="right"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:checked="false" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/half_margin"
+        >
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/othello_autohint"
+            android:textOn="ON"
+            android:textOff="OFF"
+            android:id="@+id/switch_hint"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:checked="false"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            />
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/othello_use_sound"
+            android:textOn="ON"
+            android:textOff="OFF"
+            android:id="@+id/switch_use_sound"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:checked="false"
+            android:layout_weight="1"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            />
+        </LinearLayout>
+
 
 
 </LinearLayout>

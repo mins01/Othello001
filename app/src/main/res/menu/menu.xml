@@ -11,4 +11,9 @@
         android:orderInCategory="100"
         android:title="version"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/readme"
+        android:orderInCategory="100"
+        android:title="readme"
+        app:showAsAction="never" />
 </menu>

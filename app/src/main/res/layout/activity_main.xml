@@ -142,7 +142,7 @@
         android:layout_alignTop="@+id/button_restart"
         android:layout_toRightOf="@+id/button_restart"
         android:layout_toEndOf="@+id/button_restart"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"

@@ -33,6 +33,8 @@
     <string name="othello_autohint">자동힌트</string>
     <string name="othello_use">사용</string>
     <string name="othello_not_use">미사용</string>
+    <string name="readme_text">\"공대여자는 예쁘다\"를 나타내야합니다.\nsound : http://www.freesound.org/people/joedeshon/sounds/117413/,http://www.freesound.org/people/jayfrosting/sounds/333404/</string>
+    <string name="othello_use_sound">소리</string>
 
 
 </resources>

@@ -1,12 +1,17 @@
 package com.mins01.othello001;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     //-- 세팅값
     private int blackUser = 0; //0:user 1:AI
     private int whiteUser = 2; //0:user 1:AI LV1 , 2:LV2
-    private int autoHint = 0;
+    private int autoHint = 1;
+    private int useSound = 1;
     private int gameing = 0; //게임 진핸중인가?
     Handler handlerAI = null;
     AdView mAdView = null;
@@ -47,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
     private TextView[] gameMsgs = {null,null,null};
 
     private Othello othGame = new Othello();
+
+    private SoundPool soundPool = null;
+    private int soundId_tick = 0;
+    private int soundId_cheer = 0;
+    private int soundId_wow = 0;
+    private int streamId = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +78,38 @@ public class MainActivity extends AppCompatActivity {
         stoneLabel[0] = getString(R.string.othello_stone_label_0);
         stoneLabel[1] = getString(R.string.othello_stone_label_1);
         stoneLabel[2] = getString(R.string.othello_stone_label_2);
+
+        //-- 사운드 관련
+        initSoundPool();
         //-- 초기화
         init();
+
+    }
+
+
+    /**
+     * Verify device's API before to load soundpool
+     * @return
+     */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void initSoundPool() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(3)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+        } else {
+            soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+        soundId_tick = soundPool.load(this,R.raw.tick,1);
+        soundId_cheer = soundPool.load(this,R.raw.cheer2,1);
+        soundId_wow = soundPool.load(this,R.raw.wow,1);
 
     }
 
@@ -330,14 +373,58 @@ public class MainActivity extends AppCompatActivity {
     public void putStone(int x, int y, int color) {
         boolean b = othGame.putStone(x, y, color);
 
+
         Log.d("onclickBox-putStone", othGame.msg);
         if (b) {
+            if( x==0 && y==0 ||
+                x==0 && y==7 ||
+                x==7 && y==0 ||
+                x==7 && y==7
+                    ){
+                playSoundWow();
+            }else{
+                playSoundTick();
+            }
+
             setGameMsg(getString(R.string.othello_putstone_true, x + 1, y + 1, stoneLabel[color]));
             turnEnd();
         } else {
             setGameMsg(getString(R.string.othello_putstone_false, x + 1, y + 1, stoneLabel[color]));
 
         }
+    }
+    public void stopSound(){
+        if(streamId>0) {
+            soundPool.stop(streamId);
+        }
+    }
+    public void playSoundTick_4(){
+        if(useSound==0){
+            return;
+        }
+        stopSound();
+        streamId = soundPool.play(soundId_tick, 1.0F, 1.0F,  1,  4,  1.0F);
+    }
+    public void playSoundTick(){
+        if(useSound==0){
+            return;
+        }
+        stopSound();
+        streamId = soundPool.play(soundId_tick, 1.0F, 1.0F,  1,  0,  1.0F);
+    }
+    public void playSoundCheer(){
+        if(useSound==0){
+            return;
+        }
+        stopSound();
+        streamId = soundPool.play(soundId_cheer, 1.0F, 1.0F,  1,  0,  1.0F);
+    }
+    public void playSoundWow(){
+        if(useSound==0){
+            return;
+        }
+        stopSound();
+        streamId = soundPool.play(soundId_wow, 1.0F, 1.0F,  1,  0,  1.0F);
     }
 
     /**
@@ -461,6 +548,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        ((Switch) innerView.findViewById(R.id.switch_use_sound)).setOnCheckedChangeListener(
+                new Switch.OnCheckedChangeListener(){
+
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        MainActivity.this.onCheckedChanged(buttonView, isChecked);
+                    }
+                }
+        );
 
         ((Spinner)innerView.findViewById(R.id.spinner_user_1)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -508,6 +604,8 @@ public class MainActivity extends AppCompatActivity {
         settingDialog.show();
 
         ((Switch) settingDialog.findViewById(R.id.switch_hint)).setChecked(this.autoHint==1);
+        ((Switch) settingDialog.findViewById(R.id.switch_use_sound)).setChecked(this.useSound==1);
+        ((Spinner) settingDialog.findViewById(R.id.spinner_user_1)).setSelection(this.blackUser);
         ((Spinner) settingDialog.findViewById(R.id.spinner_user_2)).setSelection(this.whiteUser);
     }
 
@@ -522,6 +620,7 @@ public class MainActivity extends AppCompatActivity {
         ab.setNegativeButton("close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
+                stopSound();
                 setDismiss(gameoverDialog);
             }
         });
@@ -531,6 +630,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showDialogForGameover() {
         Log.d("showDialogForSetting", blackUser + ":" + whiteUser);
+        playSoundCheer();
         gameoverDialog.show();
         int[] cnts = othGame.board.getCount();
 
@@ -588,16 +688,13 @@ public class MainActivity extends AppCompatActivity {
         }
         drawBoard();
     }
-    public void onCheckedChanged(CompoundButton arg0, boolean arg1) { // 라디오버튼
+    public void onCheckedChanged(CompoundButton arg0, boolean arg1) { // 스위치버튼
         switch (arg0.getId()) {
-//            case R.id.radio_white_0:
-//                this.whiteUser = 0;
-//                break;
-//            case R.id.radio_white_1:
-//                this.whiteUser = 1;
-//                break;
             case R.id.switch_hint:
                 this.autoHint = arg1?1:0;
+                break;
+            case R.id.switch_use_sound:
+                this.useSound = arg1?1:0;
                 break;
 
         }
@@ -626,25 +723,32 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-       if (id == R.id.developer) {
+        if (id == R.id.developer) {
             Toast.makeText(this, getString(R.string.menu_developer_msg), Toast.LENGTH_SHORT).show();
             Uri uri = Uri.parse("http://www.mins01.com");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
             return true;
         } else if (id == R.id.app_version) {
-            PackageInfo pInfo;
-            try {
-                pInfo = getPackageManager().getPackageInfo(
-                        this.getPackageName(), 0);
-                int versionCode = pInfo.versionCode;
-                String versionName = pInfo.versionName;
-                Toast.makeText(this, "Version " + versionName + " (" + versionCode + ")", Toast.LENGTH_SHORT).show();
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
+        PackageInfo pInfo;
+        try {
+            pInfo = getPackageManager().getPackageInfo(
+                    this.getPackageName(), 0);
+            int versionCode = pInfo.versionCode;
+            String versionName = pInfo.versionName;
+            Toast.makeText(this, "Version " + versionName + " (" + versionCode + ")", Toast.LENGTH_SHORT).show();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
-            return true;
+        return true;
+        }else if (id == R.id.readme) {
+            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            ab.setTitle("Readme");
+            ab.setMessage(getString(R.string.readme_text));
+            ab.setPositiveButton("ok", null);
+            ab.show();
+
         }
 
         return super.onOptionsItemSelected(item);
