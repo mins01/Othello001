@@ -13,7 +13,7 @@ public class Othello {
     public ArrayList<Stone> history;
     public Board board = new Board();
     public Othello(){
-        history = new ArrayList();
+        history = new ArrayList<>();
         init();
 
     }
@@ -35,7 +35,10 @@ public class Othello {
         //Log.d("putStone",x+":"+y+":"+color);
         return preTurnPos.size()>0;
     }
-
+    public void clear(){
+        this.history.clear();;
+        this.board.clear();
+    }
 
 
 

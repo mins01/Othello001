@@ -27,6 +27,7 @@ public class OthelloAiTester {
     private int soundId_cheer = 0;
     private int soundId_wow = 0;
     private int streamId = 0;
+    private ArrayList<Integer> results = null;
 
 
     OthelloAiImpl ai_b;
@@ -47,6 +48,8 @@ public class OthelloAiTester {
     }
 
     public void init_main(String args[]) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        setGameMsg(args.length+":");
+        results = new ArrayList<>();
         if(args.length >= 1 && args[0] != null){
             Class c1 = Class.forName(args[0]);
             setGameMsg("Black AI :"+args[0]);
@@ -63,11 +66,35 @@ public class OthelloAiTester {
             ai_w = new OthelloAiLv02();
         }
 
+        int loop_cnt = 1;
+        if(args.length >= 3 && args[2] != null){
+//            setGameMsg(args[2]);
+            loop_cnt = Integer.parseInt(args[2]);
+        }
+
         othGame = new Othello();
 
         //handlerAI = new android.os.Handler();
-        setGameMsg("init_main");
-        startGame();
+        setGameMsg("loop : "+loop_cnt);
+        while(loop_cnt-- > 0){
+            startGame();
+        }
+        printResults();
+
+    }
+    public void printResults(){
+        int[] cnt = {0,0,0};
+        for(Integer result:results){
+            cnt[(int)result]++;
+        }
+        setGameMsg("");
+        setGameMsg("AI Black : "+ai_b.getClass().getSimpleName());
+        setGameMsg("AI White : "+ai_w.getClass().getSimpleName());
+        setGameMsg("Loop : "+results.size());
+        setGameMsg("Draw : "+cnt[0]);
+        setGameMsg("WIN black : "+cnt[1]);
+        setGameMsg("WIN white : "+cnt[2]);
+
     }
 
 
@@ -85,16 +112,12 @@ public class OthelloAiTester {
     public void startGame() {
         gameing = 1;
         stopActionAI();
-        setGameMsg("");
-        setGameMsg("");
-//        setGameMsg(getString(R.string.othello_start_game));
-        othGame.board.clear();
+//        setGameMsg("");
+//        setGameMsg("");
+        othGame.clear();
 
         color = 1;
         drawBoard();
-//        return;
-//        turnEnd();
-        //printTest();
         actionAI();
     }
 
@@ -105,24 +128,28 @@ public class OthelloAiTester {
 //        showDialogForGameover();
 //        setGameMsg(getString(R.string.othello_gameover));
         int[] cnts = othGame.board.getCount();
-        setGameMsg("");
-        setGameMsg("GAME OVER");
-        setGameMsg("A.I : "+ai_b.getAiName()+" vs "+ai_w.getAiName());
+
+//        setGameMsg("");
+//        setGameMsg("GAME OVER");
+//        setGameMsg("A.I : "+ai_b.getAiName()+" vs "+ai_w.getAiName());
         if(cnts[1]==cnts[2]){
-            setGameMsg("RESULT : DRAW");
+//            setGameMsg("RESULT : DRAW");
+            results.add(new Integer(0));
         }else if(cnts[1] > cnts[2]) {
-            setGameMsg("RESULT : WIN BLACK ("+ai_b.getAiName()+")");
+//            setGameMsg("RESULT : WIN BLACK ("+ai_b.getAiName()+")");
+            results.add(new Integer(1));
         }else{
-            setGameMsg("RESULT : WIN WHITE ("+ai_w.getAiName()+")");
+//            setGameMsg("RESULT : WIN WHITE ("+ai_w.getAiName()+")");
+            results.add(new Integer(2));
         }
 
 
 
-        setGameMsg("TURN : "+othGame.history.size());
-        setGameMsg("EMPTY : "+cnts[0]);
-        setGameMsg("BLACK : "+cnts[1]);
-        setGameMsg("WHITE : "+cnts[2]);
-        setGameMsg("GAME OVER");
+//        setGameMsg("TURN : "+othGame.history.size());
+//        setGameMsg("EMPTY : "+cnts[0]);
+//        setGameMsg("BLACK : "+cnts[1]);
+//        setGameMsg("WHITE : "+cnts[2]);
+//        setGameMsg("GAME OVER");
 
 
     }

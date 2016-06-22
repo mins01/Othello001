@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
         setGameMsg("");
         setGameMsg("");
         setGameMsg(getString(R.string.othello_start_game));
-        othGame.board.clear();
+        othGame.clear();
 
         color = 1;
         drawBoard();
