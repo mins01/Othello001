@@ -10,6 +10,9 @@ import java.util.ArrayList;
  * 실제로 DB쓰는거 아니다. 아니야.
  */
 public class OthelloAiLv01 implements OthelloAiImpl {
+   public String aiName = "AI_LV_01";
+
+   @Override
    public Stone getNextStone(Othello othGame,int color){
       ArrayList<Stone> ablePos = othGame.board.getAblePos(color);
       if (ablePos.size() > 0) {
@@ -22,6 +25,11 @@ public class OthelloAiLv01 implements OthelloAiImpl {
       }
       return null;
 
+   }
+
+   @Override
+   public String getAiName() {
+      return aiName;
    }
 
 }

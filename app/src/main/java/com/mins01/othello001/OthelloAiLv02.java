@@ -1,6 +1,6 @@
 package com.mins01.othello001;
 
-import android.util.Log;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import java.util.Comparator;
  * 오델로 AI : 본인이 놓은 위치에 대해서만 제일 높은 점수 위치 찾기 (1턴만 체크함)
  */
 public class OthelloAiLv02 implements OthelloAiImpl {
+    public String aiName = "AI_LV_02";
     private int[][] boardScore = {
            {100,-50,1,1,1,1,-50,100},
            {-50,-50,1,1,1,1,-50,-50},
@@ -25,8 +26,15 @@ public class OthelloAiLv02 implements OthelloAiImpl {
     public OthelloAiLv02(){
       othtemp = new Othello();
     }
+
+
+    @Override
+    public String getAiName() {
+        return aiName;
+    }
+
     public Stone getNextStone(Othello othGame,int color){
-        Log.d("OthelloAiLv02","getNextStone");
+//        Log.d("OthelloAiLv02","getNextStone");
         ArrayList<Stone> ablePos = othGame.board.getAblePos(color);
         int score = -1;
         if (ablePos.size() > 0) {
@@ -55,7 +63,7 @@ public class OthelloAiLv02 implements OthelloAiImpl {
             return randArr.get((int)Math.floor(Math.random()*randArr.size())).stone;
         } else {
         }
-        Log.d("getNextStone",othGame.board.toString());
+//        Log.d("getNextStone",othGame.board.toString());
 
         return null;
     }

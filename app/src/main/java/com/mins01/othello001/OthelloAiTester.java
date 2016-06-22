@@ -42,16 +42,35 @@ public class OthelloAiTester {
 
     OthelloAiImpl ai_b;
     OthelloAiImpl ai_w;
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         System.out.println("테스트");
         OthelloAiTester tester = new OthelloAiTester();
-        tester.init_main();
+        try {
+            tester.init_main(args);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public void init_main(){
-        ai_b = new OthelloAiLv01();
-        ai_w = new OthelloAiLv01();
+    public void init_main(String args[]) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        if(args.length >= 2 && args[1] != null){
+            Class c1 = Class.forName(args[1]);
+            ai_b = (OthelloAiImpl) c1.newInstance();
+        }else{
+            ai_b = new OthelloAiLv01();
+        }
+        if(args.length >= 3 && args[2] != null){
+            Class c2 = Class.forName(args[2]);
+            ai_w = (OthelloAiImpl) c2.newInstance();
+        }else{
+            ai_w = new OthelloAiLv02();
+        }
+
         othGame = new Othello();
 
         //handlerAI = new android.os.Handler();
@@ -94,9 +113,20 @@ public class OthelloAiTester {
 //        showDialogForGameover();
 //        setGameMsg(getString(R.string.othello_gameover));
         int[] cnts = othGame.board.getCount();
-        setGameMsg("RESULT : ");
+        setGameMsg("");
+        setGameMsg("GAME OVER");
+
+        if(cnts[1]==cnts[2]){
+            setGameMsg("RESULT : DRAW");
+        }else if(cnts[1] > cnts[2]) {
+            setGameMsg("RESULT : BLACK ("+ai_b.getAiName()+")");
+        }else{
+            setGameMsg("RESULT : WHITE ("+ai_w.getAiName()+")");
+        }
 
 
+
+        setGameMsg("TURN : "+othGame.history.size());
         setGameMsg("EMPTY : "+cnts[0]);
         setGameMsg("BLACK : "+cnts[1]);
         setGameMsg("WHITE : "+cnts[2]);
@@ -109,12 +139,12 @@ public class OthelloAiTester {
         //handlerAI.removeCallbacksAndMessages(null);
     }
     public void actionAI() {
-        setGameMsg("actionAI-0");
+//        setGameMsg("actionAI-0");
         if(gameing==0){
-            setGameMsg("actionAI-fail");
+//            setGameMsg("actionAI-fail");
             return;
         }
-        setGameMsg("actionAI-1");
+//        setGameMsg("actionAI-1");
         if ((color == 1 )
                 || (color == 2)
                 ) {
@@ -165,33 +195,34 @@ public class OthelloAiTester {
     public void drawBoard() {
         int[][] board = othGame.board.board;
         Stone lastStone = othGame.board.lastStone;
-        System.out.println(othGame.board.toString());
+//        System.out.println(othGame.board.toString());
 
 
-        syncInfo();
+//        syncInfo();
     }
     public void syncInfo() {
 
     }
     public void callAI(){
-        setGameMsg("callAI-0");
+//        setGameMsg("callAI-0");
         int lv = color == 1?blackUser:whiteUser; //0이면 사람, 그이상이면 AI;
         Stone stone = null;
         if(color==1){
-            setGameMsg("callAI-0-1");
+//            setGameMsg("callAI-0-1");
             stone = ai_b.getNextStone(this.othGame,color);
         }else if(color==2){
-            setGameMsg("callAI-2");
+//            setGameMsg("callAI-2");
             stone = ai_w.getNextStone(this.othGame,color);
         }
         putStone(stone.x, stone.y, stone.color);
-        drawBoard();
+//        drawBoard();
     }
 
     public void putStone(int x, int y, int color) {
         boolean b = othGame.putStone(x, y, color);
+        drawBoard();
 
-        setGameMsg("onclickBox-putStone"+ othGame.msg);
+//        setGameMsg("putStone"+ othGame.msg);
 //        Log.d("onclickBox-putStone", othGame.msg);
         if (b) {
             if( x==0 && y==0 ||
@@ -205,7 +236,7 @@ public class OthelloAiTester {
             }
 
 //            setGameMsg(getString(R.string.othello_putstone_true, x + 1, y + 1, stoneLabel[color]));
-            setGameMsg( (x + 1)+","+(y + 1)+","+color);
+//            setGameMsg( (x + 1)+","+(y + 1)+","+color);
             turnEnd();
         } else {
 //            setGameMsg(getString(R.string.othello_putstone_false, x + 1, y + 1, stoneLabel[color]));

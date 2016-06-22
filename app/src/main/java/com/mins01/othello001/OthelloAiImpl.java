@@ -6,5 +6,7 @@ package com.mins01.othello001;
  * 실제로 DB쓰는거 아니다. 아니야.
  */
 public interface OthelloAiImpl {
+//   public String aiName = "";
    public Stone getNextStone(Othello othGame,int color);
+   public String getAiName();
 }
