@@ -48,7 +48,6 @@ public class OthelloAiTester {
     }
 
     public void init_main(String args[]) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        setGameMsg(args.length+":");
         results = new ArrayList<>();
         if(args.length >= 1 && args[0] != null){
             Class c1 = Class.forName(args[0]);
