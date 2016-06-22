@@ -115,7 +115,7 @@ public class OthelloAiTester {
         int[] cnts = othGame.board.getCount();
         setGameMsg("");
         setGameMsg("GAME OVER");
-
+        setGameMsg("A.I : "+ai_b.getAiName()+" vs "+ai_w.getAiName());
         if(cnts[1]==cnts[2]){
             setGameMsg("RESULT : DRAW");
         }else if(cnts[1] > cnts[2]) {
