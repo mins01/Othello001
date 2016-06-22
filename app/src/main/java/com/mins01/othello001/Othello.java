@@ -1,6 +1,6 @@
 package com.mins01.othello001;
 
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class Othello {
         Stone stone = new Stone(x, y, color);
         this.history.add(stone);
         ArrayList<int[]> preTurnPos = board.putStone(stone);
-        Log.d("putStone",x+":"+y+":"+color);
+        //Log.d("putStone",x+":"+y+":"+color);
         return preTurnPos.size()>0;
     }
 
@@ -58,7 +58,7 @@ public class Othello {
 
         }
         public void clear(){
-            Log.d("clear","!");
+            //Log.d("clear","!");
             for(int i = 0,m=this.board.length;i<m;i++){
                 for(int i2 = 0,m2=this.board[i].length;i2<m2;i2++) {
                     this.board[i][i2] = 0;
@@ -138,14 +138,14 @@ public class Othello {
             ArrayList<int[]> preTurnPos = getPreTurnPos(stone);
             if(preTurnPos.size()>0){
 
-                Log.d("돌 놓기",stone.toString());
+                //Log.d("돌 놓기",stone.toString());
                 board[stone.y][stone.x] = stone.color;
-                Log.d("뒤집기-"+stone.color, preTurnPos.size()+":");
+                //Log.d("뒤집기-"+stone.color, preTurnPos.size()+":");
                 lastStone.setStone(stone.x,stone.y,stone.color);
                 for (int[] pos:preTurnPos
                      ) {
                     board[pos[1]][pos[0]] = stone.color;
-                    Log.d("반대돌뒤집기",pos[0]+":"+pos[1]+":"+ stone.color);
+                    //Log.d("반대돌뒤집기",pos[0]+":"+pos[1]+":"+ stone.color);
                 }
             }
             return preTurnPos;
