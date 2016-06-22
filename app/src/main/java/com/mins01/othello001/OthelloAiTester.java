@@ -2,7 +2,6 @@ package com.mins01.othello001;
 
 import android.media.SoundPool;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +10,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 
 /**
+ * AI테스트용파일
  * Created by mins01 on 2016. 6. 22..
  */
 public class OthelloAiTester {
