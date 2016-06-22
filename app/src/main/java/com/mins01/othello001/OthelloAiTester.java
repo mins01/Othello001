@@ -1,11 +1,5 @@
 package com.mins01.othello001;
 
-import android.media.SoundPool;
-import android.os.Handler;
-import android.view.View;
-import android.widget.TextView;
-
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -15,7 +9,7 @@ import java.util.ArrayList;
  */
 public class OthelloAiTester {
 
-    ArrayList<View> boxes = null;
+
     //--
     private int color = 1; //0:없음,1:흑,2:
     //-- 세팅값
@@ -24,16 +18,11 @@ public class OthelloAiTester {
     private int autoHint = 1;
     private int useSound = 1;
     private int gameing = 0; //게임 진핸중인가?
-    Handler handlerAI = null;
-    AdView mAdView = null;
 
     private String[] stoneLabel = {"empty", "black", "white"};
 
-    private TextView[] gameMsgs = {null,null,null};
-
     private Othello othGame = new Othello();
 
-    private SoundPool soundPool = null;
     private int soundId_tick = 0;
     private int soundId_cheer = 0;
     private int soundId_wow = 0;
@@ -58,14 +47,17 @@ public class OthelloAiTester {
     }
 
     public void init_main(String args[]) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        if(args.length >= 2 && args[1] != null){
-            Class c1 = Class.forName(args[1]);
+        if(args.length >= 1 && args[0] != null){
+            Class c1 = Class.forName(args[0]);
+            setGameMsg("Black AI :"+args[0]);
+
             ai_b = (OthelloAiImpl) c1.newInstance();
         }else{
             ai_b = new OthelloAiLv01();
         }
-        if(args.length >= 3 && args[2] != null){
-            Class c2 = Class.forName(args[2]);
+        if(args.length >= 2 && args[1] != null){
+            setGameMsg("White AI :"+args[1]);
+            Class c2 = Class.forName(args[1]);
             ai_w = (OthelloAiImpl) c2.newInstance();
         }else{
             ai_w = new OthelloAiLv02();
@@ -119,9 +111,9 @@ public class OthelloAiTester {
         if(cnts[1]==cnts[2]){
             setGameMsg("RESULT : DRAW");
         }else if(cnts[1] > cnts[2]) {
-            setGameMsg("RESULT : BLACK ("+ai_b.getAiName()+")");
+            setGameMsg("RESULT : WIN BLACK ("+ai_b.getAiName()+")");
         }else{
-            setGameMsg("RESULT : WHITE ("+ai_w.getAiName()+")");
+            setGameMsg("RESULT : WIN WHITE ("+ai_w.getAiName()+")");
         }
 
 

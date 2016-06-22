@@ -1,6 +1,6 @@
 package com.mins01.othello001;
 
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class OthelloAiLv01 implements OthelloAiImpl {
          int idx = (int) Math.floor(Math.random() * (ablePos.size()));
          return ablePos.get(idx);
       } else {
-         Log.d("autoNext", "END");
+//         Log.d("autoNext", "END");
 
       }
       return null;
